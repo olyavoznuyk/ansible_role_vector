@@ -1,0 +1,20 @@
+data_dir: "{{ role_vector_data_dir }}"
+
+api:
+  enabled: true
+  address: "0.0.0.0:{{ role_vector_port }}"
+
+sources:
+  var_logs:
+    type: "file"
+    include:
+      - "/var/log/nginx/*.log"
+    ignore_older: 20          # 1 day
+
+sinks:
+  debug:
+    type: console
+    inputs:
+      - var_logs
+    encoding:
+      codec: json

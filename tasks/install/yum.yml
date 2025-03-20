@@ -1,0 +1,9 @@
+---
+- name: YUM | Install Vector rpm from a remote repo (yum)
+  become: true
+  become_method: ansible.builtin.su
+  ansible.builtin.yum:
+    name: "https://yum.vector.dev/stable/vector-0/{{ ansible_architecture }}/vector-{{ role_vector_version }}-1.{{ ansible_architecture }}.rpm"
+    state: present
+  notify: restart vector
+  tags: [install]
